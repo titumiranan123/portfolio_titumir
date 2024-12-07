@@ -82,7 +82,7 @@ const Work: React.FC = () => {
       className="lg:max-w-[1240px] md:max-w-[820px] max-w-[350px]  overflow-hidden mx-auto px-4"
     >
       {/* Section Header */}
-      <div className="flex justify-center items-center mt-[60px] lg:mt-[120px] flex-col mb-[60px]">
+      <div className="flex justify-center items-center mt-[60px] lg:mt-[100px] flex-col mb-[60px]">
         <div className="btn text-white">Work</div>
         <h2 className="font-bold text-center text-white text-[24px] sm:text-[28px] md:text-[35px] lg:text-[48px]">
           Explore My Works

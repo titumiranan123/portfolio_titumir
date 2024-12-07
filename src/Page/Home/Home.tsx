@@ -7,7 +7,7 @@ import Work from "../../components/Work";
 
 const Home: React.FC = () => {
   return (
-    <div className=" flex flex-col gap-[80px]  lg:px-0 px-4">
+    <div className="overflow-hidden flex flex-col gap-[80px]  lg:px-0 px-4">
       <Hero />
       <About />
       <Work />

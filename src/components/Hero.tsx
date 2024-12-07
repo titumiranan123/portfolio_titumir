@@ -1,75 +1,204 @@
 import React, { useState } from "react";
-
+import { motion } from "framer-motion";
 const Hero: React.FC = () => {
   const [open, setOpen] = useState(false);
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2, // Controls the delay between child animations
+      },
+    },
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 50 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut" }, // Smooth and responsive transition
+    },
+  };
+  const logoVariants = {
+    hidden: { opacity: 0, x: -50, scale: 0.9 },
+    show: {
+      opacity: 1,
+      x: 0,
+      scale: 1,
+      transition: { duration: 1.2, ease: "easeOut" },
+    },
+  };
+
+  const linkVariants = {
+    hidden: { opacity: 0, y: -30 },
+    show: {
+      opacity: 1,
+      y: 0,
+      transition: { duration: 0.8, ease: "easeOut", staggerChildren: 0.2 },
+    },
+  };
+
+  const hamburgerVariants = {
+    open: {
+      rotate: 45,
+      y: 6,
+      transition: { duration: 0.3, ease: "easeInOut" },
+    },
+    closed: {
+      rotate: 0,
+      y: 0,
+      transition: { duration: 0.3, ease: "easeInOut" },
+    },
+  };
   return (
     <div className="pt-10 relative max-w-[1240px] mx-auto">
-      <nav className="text-white flex justify-between items-center">
-        <div className="logo">
-          <span className="font-[900] nunito  uppercase text-white nunito text-[24px] leading-[29px]">
+      <motion.nav
+        className="text-white flex justify-between items-center"
+        initial="hidden"
+        animate="show"
+      >
+        {/* Logo */}
+        <motion.div className="logo" variants={logoVariants}>
+          <span className="font-[900] nunito uppercase text-white text-[24px] leading-[29px]">
             Titumir &nbsp;
           </span>
-          <span className="font-[500px] nunito text-[24px] leading-[29px] uppercase">
+          <span className="font-[500] nunito text-[24px] leading-[29px] uppercase">
             ANAN
           </span>
-        </div>
-        <div className="md:flex gap-5 justify-center items-center hidden">
-          <a
-            className="nunito font-bold text-[16px] leading-[19.36px] uppercase transition-all duration-150 hover:scale-105"
-            href={"#works"}
-          >
-            WORKS
-          </a>
-          <a
-            className="nunito font-bold text-[16px] leading-[19.36px] uppercase transition-all duration-150 hover:scale-105"
-            href={"#exprience"}
-          >
-            Exprience
-          </a>
-          <a
-            className="nunito font-bold text-[16px] leading-[19.36px] uppercase transition-all duration-150 hover:scale-105"
+        </motion.div>
+
+        {/* Desktop Links */}
+        <motion.div
+          className="md:flex gap-5 justify-center items-center hidden"
+          variants={linkVariants}
+        >
+          <motion.a
+            className="nunito font-bold text-[16px] leading-[19.36px] uppercase transition-all duration-150 hover:scale-105 hover:border-transparent hover:text-[#6919ff]"
             href={"#about"}
           >
             ABOUT
-          </a>
-          <button className="btn -mt-[6px] nunito font-[500] text-[16px] text-white hover:bg-white hover:text-[#6919ff] hover:border-transparent  transition-all duration-150 hover:scale-105">
-            Say Hello
-          </button>
-        </div>
-        <div className="md:hidden block">
-          <div
-            className={`flex flex-col gap-2 group   ${open && "hidden"}`}
-            onClick={() => setOpen(!open)}
+          </motion.a>
+          <motion.a
+            className="nunito font-bold text-[16px] leading-[19.36px] uppercase transition-all duration-150 hover:scale-105 hover:text-[#6919ff]"
+            href={"#works"}
           >
-            <span className=" w-8 h-[2px] bg-white border border-white text-black flex"></span>
-            <span className=" w-8 h-[2px] bg-white border border-white text-black flex"></span>
-            <span className=" w-8 h-[2px] bg-white border border-white text-black flex"></span>
-          </div>
+            WORKS
+          </motion.a>
+          <motion.a
+            className="nunito font-bold text-[16px] leading-[19.36px] uppercase transition-all duration-150 hover:scale-105 hover:text-[#6919ff]"
+            href={"#exprience"}
+          >
+            Exprience
+          </motion.a>
+
+          <motion.button className="btn -mt-[6px] nunito font-[500] text-[16px] text-white hover:bg-white hover:text-[#6919ff] hover:border-transparent transition-all duration-150 hover:scale-105">
+            Say Hello
+          </motion.button>
+        </motion.div>
+
+        {/* Mobile Menu Toggle */}
+        <div className="md:hidden block">
+          <motion.div
+            className={`flex flex-col gap-2 group ${open && "hidden"}`}
+            onClick={() => setOpen(!open)}
+            variants={hamburgerVariants}
+            animate={open ? "open" : "closed"}
+          >
+            <motion.span className="w-8 h-[2px] bg-white border border-white" />
+            <motion.span className="w-8 h-[2px] bg-white border border-white" />
+            <motion.span className="w-8 h-[2px] bg-white border border-white" />
+          </motion.div>
         </div>
-      </nav>
-      {/* heading content  */}
-      <div className="mt-[141px]  flex flex-col lg:flex-row  items-center gap-1 lg:gap-5">
-        <div className="font-bold  lg:w-[834px] lg:text-[78px] md:text-[78px] text-[58px] leading-[64px] md:leading-[106px] h-[214px]">
-          <span className="text-[#919BBA]   ">Turning </span>{" "}
-          <span className="text-[#F6F7FA]    ">Code</span>{" "}
-          <span className="text-[#919BBA]    ">Into</span>
+
+        {/* Mobile Menu Links */}
+        {open && (
+          <motion.div
+            className="md:hidden block bg-[#333] absolute top-16 right-0 left-0 py-4 px-6"
+            initial={{ opacity: 0, x: 50 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <motion.a
+              onClick={() => setOpen(!open)}
+              className="block text-white py-2 hover:bg-[#6919ff] transition-all duration-150"
+              href="#about"
+            >
+              ABOUT
+            </motion.a>
+            <motion.a
+              onClick={() => setOpen(!open)}
+              className="block text-white py-2 hover:bg-[#6919ff] transition-all duration-150"
+              href="#works"
+            >
+              WORKS
+            </motion.a>
+            <motion.a
+              onClick={() => setOpen(!open)}
+              className="block text-white py-2 hover:bg-[#6919ff] transition-all duration-150"
+              href="#exprience"
+            >
+              Exprience
+            </motion.a>
+
+            <motion.button className="block text-white py-2 mt-3 w-full text-center hover:bg-[#6919ff] transition-all duration-150">
+              Say Hello
+            </motion.button>
+          </motion.div>
+        )}
+      </motion.nav>
+      <div className="mt-[141px] flex flex-col lg:flex-row items-center gap-1 lg:gap-5">
+        {/* Animated Heading */}
+        <motion.div
+          className="font-bold lg:w-[834px] lg:text-[68px] md:text-[78px] text-[45px] leading-[64px] md:leading-[106px] h-[214px]"
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+        >
+          <motion.span variants={textVariants} className="text-[#919BBA]">
+            Trasforming{" "}
+          </motion.span>
+          <motion.span variants={textVariants} className="text-[#F6F7FA]">
+            Ideas
+          </motion.span>
+          <motion.span variants={textVariants} className="text-[#919BBA]">
+            {" "}
+            Into
+          </motion.span>
           <br className="hidden md:block" />
-          <span className="text-[#919BBA]    ">Creative </span>{" "}
-          <span className="text-[#F6F7FA]    ">Solutions</span>
-        </div>
-        <div>
-          <p className="lg:w-[417px] flex lg:mt-28 lg:h-[78px] nunito font-[500] text-[18px] text-[#F6F7FA] mb-5">
-            Empowering the digital landscape with precision and passion,
-            transforming ideas into immersive online experiences.
-          </p>
-        </div>
+          <motion.span variants={textVariants} className="text-[#919BBA]">
+            Creative{" "}
+          </motion.span>
+          <motion.span variants={textVariants} className="text-[#F6F7FA]">
+            Solutions
+          </motion.span>
+        </motion.div>
+
+        {/* Animated Paragraph */}
+        <motion.div
+          className="lg:w-[517px] flex  lg:h-[78px] nunito font-[500] text-[18px] text-[#F6F7FA] mb-5"
+          initial={{ opacity: 0, x: -50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1.2, ease: "easeOut", delay: 0.5 }}
+        >
+          As a Junior Frontend Developer and Cybersecurity Enthusiast, I
+          specialize in creating secure, responsive websites that deliver
+          exceptional user experiences. Let’s work together to bring your ideas
+          to life with innovative, scalable, and secure digital solutions.
+        </motion.div>
       </div>
       <div className="flex justify-center md:flex-row  mt-[30px] items-center md:gap-10 gap-4  md:mt-[75px]">
         <button className="text-white border hover:border-none rounded-s-full  rounded-e-full md:px-[39px] px-5 py-4 md:py-[20px] hover:bg-[#6919FF] text-[16px] font-[500]transition-all duration-150 hover:scale-105 hover:border-transparent">
           Explore My Works
         </button>
-        <button className="text-white border hover:border-none  rounded-s-full  rounded-e-full md:px-[39px] px-5 py-4 md:py-[20px] hover:bg-[#6919FF] text-[16px] font-[500]transition-all duration-150 hover:scale-105 hover:border-transparent">
-          Download CV
+        <button className="text-white border hover:border-none rounded-s-full rounded-e-full md:px-[39px] px-5 py-4 md:py-[20px] hover:bg-[#6919FF] text-[16px] font-[500] transition-all duration-150 hover:scale-105 hover:border-transparent">
+          <a
+            href="/path-to-your-cv-file.pdf"
+            download="CV_Md_Titumir_Anan.pdf"
+            className="w-full h-full flex items-center justify-center"
+          >
+            Download CV
+          </a>
         </button>
       </div>
       {/* mobile  */}
