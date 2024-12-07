@@ -34,7 +34,7 @@ const workJson = [
   {
     image: itechpark,
     title: "I-Tech Park",
-    project_link: "https://talkinghead.montagemotion.com/",
+    project_link: "https://i-tech-park.vercel.app/",
   },
 ];
 const Work: React.FC = () => {

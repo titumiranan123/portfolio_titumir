@@ -18,8 +18,9 @@ const Workcard: React.FC<WorkcardProps> = ({ pic, title, link }) => {
           <p className="text-[16px] font-medium">August 2023</p>
           <p className="text-[28px] font-bold text-center">{title}</p>
           <Link
-            className="btn mt-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition-colors"
+            className=" mt-6 px-4 py-2  text-white  hover:bg-[#6919FF] transition-colors flex justify-center items-center border-[#6919FF] border hover:border-transparent rounded-lg"
             to={link}
+            target="_blank"
           >
             Project Link
           </Link>

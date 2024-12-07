@@ -33,7 +33,7 @@ const About: React.FC = () => {
         >
           {/* Button */}
           <motion.button
-            className="btn w-[180px] text-[#6919FF]"
+            className="btn w-[180px] text-[white]"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5, duration: 0.8, ease: "easeOut" }}
