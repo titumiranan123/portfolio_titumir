@@ -1,16 +1,15 @@
-import React from "react";
-
-import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination, Autoplay } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/pagination";
+import React, { useState } from "react";
 import podcast from "./../assets/podcast.png";
 import shorts from "./../assets/shorts.png";
 import talking from "./../assets/talkinghead.png";
 import montagemotion from "./../assets/montagemotion.png";
 import itechpark from "./../assets/itechpark.png";
-import Workcard from "./Workcard";
+import Slider from "react-slick";
 
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
+// import required modules
+import Workcard from "./Workcard";
 const workJson = [
   {
     image: montagemotion,
@@ -38,49 +37,79 @@ const workJson = [
     project_link: "https://talkinghead.montagemotion.com/",
   },
 ];
-
 const Work: React.FC = () => {
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    initialSlide: 0,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 820,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+    afterChange: (current: number) => setCurrentSlide(current),
+  };
   return (
-    <div id="works" className="lg:-mt-[82px]  max-w-[1240px] mx-auto">
-      <div className="flex justify-center items-center lg:mt-[120px]  flex-col mb-[82px]">
-        <div className="btn text-white ">Work</div>
-        <div className="font-bold md:text-[48px] inter text-white text-[35px] ">
+    <div
+      id="works"
+      className="lg:max-w-[1240px] md:max-w-[820px] max-w-[350px]  overflow-hidden mx-auto px-4"
+    >
+      {/* Section Header */}
+      <div className="flex justify-center items-center mt-[60px] lg:mt-[120px] flex-col mb-[60px]">
+        <div className="btn text-white">Work</div>
+        <h2 className="font-bold text-center text-white text-[24px] sm:text-[28px] md:text-[35px] lg:text-[48px]">
           Explore My Works
-        </div>
+        </h2>
       </div>
-      <Swiper
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 2500,
-          disableOnInteraction: false,
-        }}
-        modules={[Pagination, Autoplay]}
-        breakpoints={{
-          375: {
-            slidesPerView: 1,
-          },
-          768: {
-            slidesPerView: 2,
-          },
-          1024: {
-            slidesPerView: 3,
-          },
-        }}
-      >
+      <Slider {...settings}>
         {workJson.map((work, index) => (
-          <SwiperSlide key={index}>
-            <Workcard
-              pic={work.image}
-              title={work.title}
-              link={work.project_link}
-            />
-          </SwiperSlide>
+          <Workcard
+            key={index}
+            pic={work.image}
+            title={work.title}
+            link={work.project_link}
+          />
         ))}
-      </Swiper>
-      <div className="line lg:mt-[118px] lg:w-[1240px] h-[1px] overflow-hidden"></div>
+      </Slider>
+      {/* Custom Dots */}
+      <div className="custom-dots">
+        {workJson.map((_, index) => (
+          <button
+            key={index}
+            className={`dot ${currentSlide === index ? "active" : ""}`}
+            onClick={() => setCurrentSlide(index)}
+          />
+        ))}
+      </div>
+
+      {/* <div className="line mt-[60px] lg:mt-[118px] w-full h-[1px] bg-gray-700"></div> */}
     </div>
   );
 };

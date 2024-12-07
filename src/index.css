@@ -49,92 +49,11 @@ abbr {
     rgba(202, 207, 221, 0.2) 79.69%
   );
 }
-.container {
-  border: 1px solid;
-  border-image-source: linear-gradient(
-    90deg,
-    rgba(202, 207, 221, 0.2) 22.4%,
-    #cacfdd 51.01%,
-    rgba(202, 207, 221, 0.2) 79.69%
-  );
-  width: 1204px;
-  height: 180px;
-
-  border-radius: 16px;
-  border: 1px;
-}
-
-.boxContainer {
-  background: #0c1021;
-  width: 1200px;
-  height: 178px;
-
-  border-radius: 16px;
-  border: 1px;
-}
-
-.boxx {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 20px;
-  backdrop-filter: blur(10px);
-}
-
-.boxx::before {
-  content: "";
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: linear-gradient(
-    90deg,
-    rgba(202, 207, 221, 0.2) 22.4%,
-    #cacfdd 51.01%,
-    rgba(202, 207, 221, 0.2) 79.69%
-  );
-}
-
-.line {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  backdrop-filter: blur(10px);
-}
-
-.line::before {
-  content: "";
-  position: absolute;
-  width: 1240px;
-  height: 700px;
-  background: linear-gradient(
-    90deg,
-    rgba(202, 207, 221, 0.2) 22.4%,
-    #cacfdd 51.01%,
-    rgba(202, 207, 221, 0.2) 79.69%
-  );
-  /* Optional: add animation if needed */
-  /* animation: spin 5s linear infinite; */
-}
-
-.boxs {
-  border-radius: 20px;
-}
-
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
 
 /* box card style  */
-
+.bg {
+  @apply bg-gradient-to-r from-[rgba(202,207,221,0.2)] via-[#cacfdd] to-[rgba(202,207,221,0.2)];
+}
 .btn {
   height: 36px;
   border-radius: 33px;
@@ -202,18 +121,49 @@ svg {
   align-items: center;
   gap: 10px;
 }
-
-.swiper {
-  height: 300px !important;
+.slick-arrow {
+  display: none !important;
+}
+/* Carousel Container */
+.carousel-container {
+  position: relative;
+  width: 80%;
+  margin: 0 auto;
 }
 
-.swiper-pagination-bullet-active {
-  width: 20px !important;
-  border-radius: 4px !important;
-  /* background: red !important; */
+/* Individual Card */
+.card {
+  padding: 10px;
+  display: flex;
+  justify-content: center;
 }
 
-.swiper-pagination-bullet {
-  background: rgb(34, 162, 221) !important;
-  margin-top: 20px !important;
+.card-image {
+  width: 100%;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Custom Dots */
+.custom-dots {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.custom-dots .dot {
+  width: 10px;
+  height: 8px;
+  background-color: #555; /* Inactive dot color */
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.custom-dots .dot.active {
+  background-color: #6919ff; /* Active dot color */
+  width: 20px;
 }

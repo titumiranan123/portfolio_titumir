@@ -4,7 +4,7 @@ import profile from "../assets/AboutImage.png";
 const About: React.FC = () => {
   return (
     <div className="lg:mt-[172px] max-w-[1240px] mx-auto">
-      <div className="line lg:w-[1240px] w-[100%] h-[2px] overflow-hidden"></div>
+      <div className="bg lg:w-[1240px] w-[100%] h-[1px] overflow-hidden"></div>
       <div
         id="about"
         className="   flex justify-center flex-wrap lg:flex-nowrap  lg:gap-10 gap-14 md:mb-0 mb-3 items-center"
@@ -32,7 +32,7 @@ const About: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="line lg:w-[1240px] w-full h-[2px] overflow-hidden"></div>
+      <div className="bg lg:w-[1240px] w-full h-[1px] overflow-hidden"></div>
     </div>
   );
 };
